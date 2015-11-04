@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.test873923.testdb73832">
+  <class table="TABLE1" name="com.test873923.testdb73832.Table1" entity-name="com.test873923.testdb73832.Table1" schema="PUBLIC">
+    <id name="id" type="integer">
+      <column name="ID" length="255" not-null="true" precision="19"/>
+      <generator class="identity"/>
+    </id>
+    <property name="column2" type="integer">
+      <column name="COLUMN2" length="255" not-null="false" precision="19" default="'0'"/>
+    </property>
+    <property name="column3" type="string">
+      <column name="COLUMN3" length="255" not-null="false" precision="19"/>
+    </property>
+    <set name="table4s" table="TABLE4" inverse="true" lazy="true" fetch="select">
+      <key>
+        <column name="COLUMN3"/>
+      </key>
+      <one-to-many class="Table4"/>
+    </set>
+  </class>
+  <class table="TABLE4" name="com.test873923.testdb73832.Table4" entity-name="com.test873923.testdb73832.Table4" schema="PUBLIC">
+    <composite-id name="id" class="Table4Id">
+      <key-property name="column2" type="integer">
+        <column name="COLUMN2" length="255" not-null="true" precision="19" default="'0'"/>
+      </key-property>
+      <key-property name="id" type="integer">
+        <column name="ID" length="255" not-null="true" precision="19"/>
+      </key-property>
+    </composite-id>
+    <many-to-one
+      name="table1"
+      class="Table1"
+      fetch="select">
+      <column name="COLUMN3" length="255" not-null="true" precision="19" default="'0'"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>
